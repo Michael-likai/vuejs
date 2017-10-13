@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <button v-on:click='Move'>Move</button>
+    <button @click='Stop'>Stop</button>
+    <h1 v-text='msg'></h1>
+  </div>
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '向着太阳移动！',
+        timer: null,
+      },
+
+      methods: {
+        Move: function () {
+        clearInterval(this.timer);
+          var that = this;
+          this.timer = setInterval(function () {
+            var first = that.msg[0];
+            //拿到字符串的第一个字符 msg[0] 
+            // msg.substring(start,stop)  msg.substr(start,length) 如果都是一个值就会从开始的开始返回后面的所有
+            var last = that.msg.substr(1);
+            that.msg = last + first;
+          }, 200)
+        },
+
+        Stop: function () {
+          // console.log(1)
+          clearInterval(this.timer)
+        },
+      }
+    });
+  </script>
+</body>
+
+</html>

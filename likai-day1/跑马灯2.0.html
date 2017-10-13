@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .move {
+      height: 40px;
+      width: 80px;
+      background-color: skyblue;
+      margin-top: 50px;
+      color: white;
+    }
+
+    .stop {
+      height: 40px;
+      width: 80px;
+      background-color: hotpink;
+      color: black;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    h1{
+      margin: 0 auto;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <button v-bind:class="'move'" v-on:click='move' v-text='m'></button>
+    <button :class="{stop:isTrue}" @click='stop' v-text='s'></button>
+    <h1 :class="'h1'" v-text='msg'></h1>
+  </div>
+
+  <script src="./node_modules/vue/dist/vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '000000800000008000000800000008000008',
+        m:'move',
+        s:'stop',
+        isTrue: true,
+        timer:null,
+      },
+      methods:{
+        move:function(){
+          clearInterval(this.timer)
+          var that = this;
+          this.timer = setInterval(function(){
+            var first = that.msg.substr(0,1);
+            var last = that.msg.substring(1);
+            that.msg = last + first;
+          },100)
+        },
+        stop:function(){
+          clearInterval(this.timer)
+        }
+      }
+    });
+  </script>
+
+</body>
+
+</html>
